@@ -14,7 +14,7 @@ public class App2 {
             System.out.println(" Введите a[" + i +"] : ");
          arr[i] = sc.nextInt();
         }
-
+        sc.close();
         System.out.println(Arrays.toString(arr));
 
         for (int i = 1; i <arr.length-1 ; i++) {

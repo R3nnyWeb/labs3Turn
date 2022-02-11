@@ -13,6 +13,7 @@ public class App {
         for (int i = 0; i <n ; i++) {
             System.out.printf(" " + String.valueOf(rd.nextInt(100)));
         }
+        sc.close();
         System.out.println();
         System.out.println("С переходом: ");
         for (int i = 0; i <n ; i++) {
