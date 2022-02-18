@@ -6,7 +6,7 @@ public class Numbers {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Введиде количество чисел: ");
-        int n;
+        int n = 0;
         do {
             n = sc.nextInt();
             if (n<3) System.out.println("Количество чилсел должно быть больше 2");
