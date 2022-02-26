@@ -1,27 +1,61 @@
 package Ex1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class App {
+    final static int MIN_HOUR = 0;
+    final static int MAX_HOUR = 23;
     public static void main(String[] args) {
         ArrayList<Train> trains = new ArrayList(){
             {
-                add(new Train("Moscow", "A152", new Date(2022, Calendar.FEBRUARY,25,15,20), 150,130,40));
-                add(new Train("Rostov-na-Donu", "A512", new Date(2022,Calendar.FEBRUARY,25,16,22),80,160,20));
-                add(new Train("Moscow","A153", new Date(2022,Calendar.FEBRUARY,3,0,25),120,130,40));
-                add(new Train("Moscow","A154", new Date(2022,Calendar.FEBRUARY,15,10,28),120,125,40));
-                add(new Train("Ryazan","69B", new Date(2022,Calendar.MARCH,3,0,25),100,120,40));
-                add(new Train("Ryazan","68B", new Date(2022,Calendar.MARCH,6,4,17),100,120,40));
-                add( new Train("Kiev","100C", new Date(2022,Calendar.FEBRUARY,27,16,29),80,120,30));
+                add(new Train(Cities.MOSCOW, "A152", new Date(2022, Calendar.FEBRUARY,25,15,20), 150,130,40,20));
+                add(new Train(Cities.ROSTOV, "A512", new Date(2022,Calendar.FEBRUARY,25,16,22),80,160,20,20));
+                add(new Train(Cities.RYAZAN,"A153", new Date(2022,Calendar.FEBRUARY,3,0,25),120,130,40,20));
+                add(new Train(Cities.ROSTOV,"A154", new Date(2022,Calendar.FEBRUARY,15,10,28),120,125,40,20));
+                add(new Train(Cities.GROZNIY,"69B", new Date(2022,Calendar.MARCH,3,0,25),100,120,40,20));
+                add(new Train(Cities.KRASNODAR,"68B", new Date(2022,Calendar.MARCH,6,4,17),100,120,40,20));
+                add( new Train(Cities.KRASNODAR,"100C", new Date(2022,Calendar.FEBRUARY,27,16,49),80,120,30,20));
+                add( new Train(Cities.KRASNODAR,"101C", new Date(2022,Calendar.FEBRUARY,29,16,29),0,120,30,20));
+
             }
         };
-
+        System.out.println("\nОбщий список:\n");
         trains.forEach(System.out::println);
-        String neededDestination = "Moscow";
-        System.out.println("Поезда следующие до " + neededDestination);
-        TrainAction.getTrainsComingToGivenDestination(trains,neededDestination).forEach(System.out::println);
+        //Фильтрация по городу
+        Cities filterDestination = Cities.KRASNODAR;
+        System.out.println("\nСписок поездов, следующих до "+ filterDestination + "  \n");
+        trains.stream()
+                .filter(x -> x.getDestination() == filterDestination)
+                .forEach(System.out::println);
+        //Считываю часы для фильрации
+        Scanner sc = new Scanner(System.in);
+        int filterHour = 255;
+        while ((filterHour < MIN_HOUR) || (filterHour > MAX_HOUR)) {
+            System.out.println("Введите необходимый час от 0 до 23");
+            try {
+                filterHour = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e){   // Если была введена буква, выполнение не завершится
+                System.err.println("Введи число");
+            }
+        }
+
+        //Фильтрация по городу и по часу отправления
+        System.out.println("\nСписок поездов, следующих до "+ filterDestination + " и отправляющихся после " + filterHour + " часов "+"\n");
+        int finalFilterHour = filterHour; // Компилятор требовал, чтобы переменная была final  в лямбда выражении
+        trains.stream()
+                .filter(x -> (x.getDepartureTime().getHours() >= finalFilterHour))
+                .filter(x -> (x.getDestination() == filterDestination))
+                .forEach(System.out::println);
+
+        //Фильтрация по городу и по наличию общих мест
+        System.out.println("\nСписок поездов, следующих до "+ filterDestination + " и имеющие общие (COMMON) места"+"\n");
+        trains.stream()
+                .filter(x->(x.getDestination()) == filterDestination)
+                .filter(x -> (x.getSeatsCountByType(SeatTypes.COMMON) > 0 ))
+                .forEach(System.out::println);
+
+
+
     }
 }

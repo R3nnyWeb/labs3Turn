@@ -1,38 +1,41 @@
 package Ex1;
 
 import java.util.Date;
+import java.util.EnumMap;
 
 public class Train {
-    private String destination;
+    private Cities destination;
     private String trainNumber;
     private Date departureTime;
-    private int allPlaces;
-    private int coupePlaces;
-    private int secondClassPlaces;
-    private int luxuryPlaces;
+    private int summarySeatsCount;
+    private EnumMap<SeatTypes, Integer> allSeatsCountByTypes;
 
-    private void setAllPlaces() {
-        this.allPlaces = coupePlaces + secondClassPlaces + luxuryPlaces;;
+    private void setSummarySeatsCount() {
+        for (SeatTypes type: SeatTypes.values()) {
+            summarySeatsCount += allSeatsCountByTypes.get(type);
+        }
     }
-    public int getAllPlaces() {
-        return allPlaces;
+    public int getSummarySeatsCount() {
+        return summarySeatsCount;
     }
 
-    public Train(String destination, String trainNumber, Date departureTime, int coupePlaces, int secondClassPlaces, int luxuryPlaces) {
+    public Train(Cities destination, String trainNumber, Date departureTime, int commonSeatsCount, int compartmentSeatsCount, int reservedSeatsCount,int luxurySeatsCount ) {
         this.destination = destination;
         this.trainNumber = trainNumber;
         this.departureTime = departureTime;
-        this.coupePlaces = coupePlaces;
-        this.secondClassPlaces = secondClassPlaces;
-        this.luxuryPlaces = luxuryPlaces;
-        setAllPlaces();
+        this.allSeatsCountByTypes = new EnumMap<SeatTypes, Integer>(SeatTypes.class);
+        allSeatsCountByTypes.put(SeatTypes.COMMON, commonSeatsCount);
+        allSeatsCountByTypes.put(SeatTypes.COMPARTMENT, compartmentSeatsCount);
+        allSeatsCountByTypes.put(SeatTypes.RESERVED_SEAT, reservedSeatsCount);
+        allSeatsCountByTypes.put(SeatTypes.LUXURY, luxurySeatsCount);
+        setSummarySeatsCount();
     }
 
-    public String getDestination() {
+    public Cities getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(Cities destination) {
         this.destination = destination;
     }
 
@@ -52,46 +55,22 @@ public class Train {
         this.departureTime = departureTime;
     }
 
-    public int getCoupePlaces() {
-        return coupePlaces;
+    public  void setSeatsCountByType(SeatTypes type, int newCount){
+        allSeatsCountByTypes.put(type, newCount);
+        setSummarySeatsCount();
     }
-
-    public void setCoupePlaces(int coupePlaces) {
-        this.coupePlaces = coupePlaces;
-        setAllPlaces();
-    }
-
-    public int getSecondClassPlaces() {
-        return secondClassPlaces;
-
-    }
-
-    public void setSecondClassPlaces(int secondClassPlaces) {
-        this.secondClassPlaces = secondClassPlaces;
-        setAllPlaces();
-
-    }
-
-    public int getLuxuryPlaces() {
-        return luxuryPlaces;
+    public int getSeatsCountByType(SeatTypes type){
+        return allSeatsCountByTypes.get(type);
     }
 
     @Override
     public String toString() {
         return "Train{" +
-                "destination='" + destination + '\'' +
+                "destination=" + destination +
                 ", trainNumber='" + trainNumber + '\'' +
                 ", departureTime=" + departureTime +
-                ", allPlaces=" + allPlaces +
-                ", coupePlaces=" + coupePlaces +
-                ", secondClassPlaces=" + secondClassPlaces +
-                ", luxuryPlaces=" + luxuryPlaces +
+                ", summarySeatsCount=" + summarySeatsCount +
+                ", allSeatsCountByTypes=" + allSeatsCountByTypes +
                 '}';
-    }
-
-    public void setLuxuryPlaces(int luxuryPlaces) {
-        this.luxuryPlaces = luxuryPlaces;
-        setAllPlaces();
-
     }
 }
