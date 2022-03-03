@@ -66,11 +66,11 @@ public class Train {
     @Override
     public String toString() {
         return "Train{" +
-                "destination=" + destination +
-                ", trainNumber='" + trainNumber + '\'' +
-                ", departureTime=" + departureTime +
-                ", summarySeatsCount=" + summarySeatsCount +
-                ", allSeatsCountByTypes=" + allSeatsCountByTypes +
+                "Место назначения = " + destination +
+                ", номер поезда ='" + trainNumber + "', \n" +
+                "   время отправления =" + departureTime +
+                ", общее количество мест =" + summarySeatsCount +", \n" +
+                "   количество мест каждого типа =" + allSeatsCountByTypes +
                 '}';
     }
 }
