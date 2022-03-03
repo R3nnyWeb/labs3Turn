@@ -80,7 +80,7 @@ class GraphTest {
         boolean result = true;
         Set<TopGraph> exceptedGraphSet = exceptedDirectMatch.keySet();
         Set<TopGraph> actualGraphSet = actualDirectMatch.keySet();
-            
+
 
         assert(result);
 
