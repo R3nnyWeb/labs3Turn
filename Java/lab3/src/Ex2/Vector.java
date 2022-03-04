@@ -9,6 +9,7 @@ public class Vector {
         return Math.sqrt(coordX * coordX + coordY * coordY + coordZ * coordZ);
     };
 
+
     //Конструктор
     public Vector(double coordX, double coordY, double coordZ) {
         this.coordX = coordX;
