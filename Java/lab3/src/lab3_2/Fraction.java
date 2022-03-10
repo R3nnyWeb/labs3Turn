@@ -1,12 +1,16 @@
 package lab3_2;
 
 public class Fraction {
-    int m, n;
+    int numerator, denominator;
 
     Fraction(int numerator, int denominator){
         int divider = nod(numerator, denominator);
-        m = numerator/divider;
-        n = denominator/divider;
+        this.numerator = numerator/divider;
+        this.denominator = denominator/divider;
+        if (this.denominator < 0) {
+            this.numerator = -this.numerator;
+            this.denominator = -this.denominator;
+        }
     }
 
     //Алгоритм Евклида для нахождения НОД
@@ -27,31 +31,31 @@ public class Fraction {
     }
 
     public Fraction add(Fraction secondFraction){
-        int numerator = this.m * secondFraction.n + secondFraction.m * this.n;
-        int denominator = this.n * secondFraction.n;
+        int numerator = this.numerator * secondFraction.denominator + secondFraction.numerator * this.denominator;
+        int denominator = this.denominator * secondFraction.denominator;
         return reduce(numerator, denominator);
     }
 
     public Fraction sub(Fraction secondFraction){
-        int numerator = this.m * secondFraction.n - secondFraction.m * this.n;
-        int denominator = this.n * secondFraction.n;
+        int numerator = this.numerator * secondFraction.denominator - secondFraction.numerator * this.denominator;
+        int denominator = this.denominator * secondFraction.denominator;
         return reduce(numerator, denominator);
     }
 
     public Fraction mul(Fraction secondFraction){
-        int numerator = this.m * secondFraction.m;
-        int denominator = this.n * secondFraction.n;
+        int numerator = this.numerator * secondFraction.numerator;
+        int denominator = this.denominator * secondFraction.denominator;
         return reduce(numerator, denominator);
     }
 
     public Fraction div(Fraction secondFraction){
-        int numerator = this.m * secondFraction.n;
-        int denominator = this.n * secondFraction.m;
+        int numerator = this.numerator * secondFraction.denominator;
+        int denominator = this.denominator * secondFraction.numerator;
         return reduce(numerator, denominator);
     }
 
     @Override
     public String toString() {
-        return m + "/" + n;
+        return numerator + "/" + denominator;
     }
 }

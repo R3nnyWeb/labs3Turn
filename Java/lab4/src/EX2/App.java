@@ -13,7 +13,7 @@ public class App {
     return sum;
     };
 
-    public static int getTariffsBy
+    public static int getTariffsBy;
     public static void main(String[] args) {
 
 
