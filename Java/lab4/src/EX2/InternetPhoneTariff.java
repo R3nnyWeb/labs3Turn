@@ -3,7 +3,7 @@ package EX2;
 public class InternetPhoneTariff extends  PhoneTariff {
     private double mBOfInternet;
 
-    public InternetPhoneTariff(int users, String name, double costInRubles, int minutesToTalk, double mBOfInternet) {
+    public InternetPhoneTariff(int users, String name, int costInRubles, int minutesToTalk, double mBOfInternet) {
         super(users, name, costInRubles, minutesToTalk);
         this.mBOfInternet = mBOfInternet;
     }
@@ -22,8 +22,8 @@ public class InternetPhoneTariff extends  PhoneTariff {
                 "users=  " + getUsers() + '\'' +
                 "minutesToTalk= " + getMinutesToTalk() + '\'' +
                 "mBOfInternet=" + mBOfInternet +
-                ", name='" + name + '\'' +
-                ", costInRubles=" + costInRubles +
+                ", name='" + getName() + '\'' +
+                ", costInRubles=" + getCostInRubles() +
                 '}';
     }
 }

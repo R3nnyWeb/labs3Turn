@@ -3,11 +3,11 @@ package EX2;
 
 public abstract class MobileTariff {
     private int users;
-    String name;
-    double costInRubles;
+    private String name;
+    private int costInRubles;
 
 
-    public MobileTariff(int users, String name, double costInRubles) {
+    public MobileTariff(int users, String name, int costInRubles) {
         this.users = users;
         this.name = name;
         this.costInRubles = costInRubles;
@@ -33,7 +33,7 @@ public abstract class MobileTariff {
         return costInRubles;
     }
 
-    public void setCostInRubles(double costInRubles) {
+    public void setCostInRubles(int costInRubles) {
         this.costInRubles = costInRubles;
     }
 

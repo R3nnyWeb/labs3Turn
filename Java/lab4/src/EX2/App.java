@@ -1,19 +1,19 @@
 package EX2;
 
 import java.util.ArrayList;
-
+import java.util.Scanner;
 
 
 public class App {
     public static int getSummaryUsers(ArrayList<MobileTariff> tariffs) {
         int sum = 0;
-        for (int i = 0; i <tariffs.size() ; i++) {
-            sum += tariffs.get(i).getUsers();
+        for (MobileTariff tariff : tariffs) {
+            sum += tariff.getUsers();
         }
     return sum;
     };
 
-    public static int getTariffsBy;
+
     public static void main(String[] args) {
 
 
@@ -31,7 +31,57 @@ public class App {
         tariffs.sort(new TariffCostComparator());
         tariffs.forEach(System.out::println);
         System.out.println("Общее кол-во пользователей: " + getSummaryUsers(tariffs));
+        Scanner sc = new Scanner(System.in);
+        int startUserRange = 0;
+        int endUserRange = 0;
+        while (startUserRange == 0) {
+            System.out.println("Введите начало диапазона пользователей > 0 ");
+            try {
+                startUserRange = Integer.parseInt(sc.nextLine());
+                if (startUserRange < 0){
+                    startUserRange = 0;
+                }
+            } catch (NumberFormatException e){   // Если была введена буква, выполнение не завершится
+                System.err.println("Введите число");
+            }
+        }
+        while (endUserRange == 0) {
+            System.out.println("Введите конец диапазона пользователей > " + startUserRange );
+            try {
+                endUserRange = Integer.parseInt(sc.nextLine());
+                if(startUserRange >= endUserRange){
+                    endUserRange = 0;
+                }
+            } catch (NumberFormatException e){
+                System.err.println("Введите число");
+            }
+        }
+        int startCostRange = 0;
+        int endCostRange = 0;
+        while (startCostRange == 0) {
+            System.out.println("Введите начало диапазона стоимости > 0 ");
+            try {
+                startCostRange = Integer.parseInt(sc.nextLine());
+                if (startCostRange < 0){
+                    startCostRange = 0;
+                }
+            } catch (NumberFormatException e){   // Если была введена буква, выполнение не завершится
+                System.err.println("Введите число");
+            }
+        }
+        while (endCostRange == 0) {
+            System.out.println("Введите конец диапазона пользователей > " + startCostRange );
+            try {
+                endCostRange = Integer.parseInt(sc.nextLine());
+                if(startCostRange >= endCostRange){
+                    endCostRange = 0;
+                }
+            } catch (NumberFormatException e){
+                System.err.println("Введите число");
+            }
+        }
 
+        System.out.println(MobileTariffAction.filterByUsersAndCost(tariffs,startUserRange,endUserRange,startCostRange,endCostRange));
     }
 
 

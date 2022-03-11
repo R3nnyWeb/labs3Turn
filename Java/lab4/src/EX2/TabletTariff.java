@@ -3,7 +3,7 @@ package EX2;
 public class TabletTariff extends MobileTariff{
     private double mBOfInternet;
 
-    public TabletTariff(int users, String name, double costInRubles, double mBOfInternet) {
+    public TabletTariff(int users, String name, int costInRubles, double mBOfInternet) {
         super(users, name, costInRubles);
         this.mBOfInternet = mBOfInternet;
     }
@@ -20,8 +20,8 @@ public class TabletTariff extends MobileTariff{
     public String toString() {
         return "TabletTariff{" +
                 "users " + getUsers() + '\'' +
-                "name='" + name + '\'' +
-                ", costInRubles=" + costInRubles +
+                "name='" + getName() + '\'' +
+                ", costInRubles=" + getCostInRubles() +
                 ", mBOfInternet=" + mBOfInternet +
                 '}';
     }

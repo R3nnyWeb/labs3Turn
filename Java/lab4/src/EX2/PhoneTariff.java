@@ -11,7 +11,7 @@ public class PhoneTariff extends  MobileTariff{
         this.minutesToTalk = minutesToTalk;
     }
 
-    public PhoneTariff(int users, String name, double costInRubles, int minutesToTalk) {
+    public PhoneTariff(int users, String name, int costInRubles, int minutesToTalk) {
         super(users, name, costInRubles);
         this.minutesToTalk = minutesToTalk;
     }
@@ -21,8 +21,8 @@ public class PhoneTariff extends  MobileTariff{
         return "PhoneTariff{" +
                 "users=  " + getUsers() + '\'' +
 
-                "name='" + name + '\'' +
-                ", costInRubles=" + costInRubles +
+                "name='" + getName() + '\'' +
+                ", costInRubles=" + getCostInRubles() +
                 ", minutesToTalk=" + minutesToTalk +
                 '}';
     }
