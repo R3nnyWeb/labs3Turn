@@ -1,16 +1,16 @@
 package lab5_var10;
 
-public class Patient extends PatientInfo implements PatientManager{
+public class Patient extends PatientInfo implements PatientManager {
 
-    Patient(String name, String surname, String patronymic){
-        super(name,surname, patronymic);
+    Patient(String name, String surname, String patronymic) {
+        super(name, surname, patronymic);
     }
 
-    Patient(String name, String surname, String patronymic, String address, String phone){
-        super(name,surname, patronymic, address, phone);
+    Patient(String name, String surname, String patronymic, String address, String phone) {
+        super(name, surname, patronymic, address, phone);
     }
 
-        @Override
+    @Override
     public void issueContract() {
         System.out.println("Договор оформлен");
     }
