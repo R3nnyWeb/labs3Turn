@@ -1,17 +1,22 @@
 package lab5_var10;
 
-public class People {
+public class PatientInfo {
     private String name, surname, patronymic;
     private String address = "Не указан";
     private String phone = "Не указан";
+    static int numOfPatient;
+    private final int id;
+    private int medCard;
 
-    People(String name, String surname, String patronymic){
+    PatientInfo(String name, String surname, String patronymic){
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
+        id = numOfPatient;
+        numOfPatient++;
     }
 
-    People(String name, String surname, String patronymic, String address, String phone){
+    PatientInfo(String name, String surname, String patronymic, String address, String phone){
         this(name, surname, patronymic);
         this.address = address;
         this.phone = phone;
@@ -57,9 +62,23 @@ public class People {
         this.phone = phone;
     }
 
+    public int getMedCard() {
+        return medCard;
+    }
+
+    public void setMedCard(int medCard) {
+        this.medCard = medCard;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
-        return  "ФИО: " + name +" "+ surname + " " + patronymic + '\n' +
+        return  "ID пациента: " + id + '\n' +
+                "ФИО: " + name +" "+ surname + " " + patronymic + '\n' +
+                "Номер медицинской карты: " + medCard + '\n' +
                 "Адрес: " + address + '\n' +
                 "Телефон: " + phone;
     }
