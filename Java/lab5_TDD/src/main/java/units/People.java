@@ -1,18 +1,20 @@
-package lab5_var10;
+package units;
+
+import java.util.Objects;
 
 public class People {
     private String name, surname, patronymic;
     private String address = "Не указан";
-    private String phone;
+    private String phone = "Не указан";
 
-    People(String name, String surname, String patronymic){
+    public People(String surname, String name, String patronymic) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
     }
 
-    People(String name, String surname, String patronymic, String address, String phone){
-        this(name, surname, patronymic);
+    public People(String surname, String name, String patronymic, String address, String phone) {
+        this(surname, name, patronymic);
         this.address = address;
         this.phone = phone;
     }
@@ -58,9 +60,24 @@ public class People {
     }
 
     @Override
-    public String toString() {
-        return  "ФИО: " + name +" "+ surname + " " + patronymic + '\n' +
-                "Адрес: " + address + '\n' +
-                "Телефон: " + phone;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        People people = (People) o;
+        return Objects.equals(name, people.name) && Objects.equals(surname, people.surname) && Objects.equals(patronymic, people.patronymic) && Objects.equals(address, people.address) && Objects.equals(phone, people.phone);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, patronymic, address, phone);
+    }
+
+    @Override
+    public String toString(){
+
+        return " ФИО: " + surname + " "  + name + " " + patronymic + "\n Адрес: " + address + "\n Телефон: " +phone;
+    }
+
+
+
 }
