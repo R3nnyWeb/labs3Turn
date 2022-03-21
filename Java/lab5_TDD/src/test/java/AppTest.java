@@ -1,4 +1,5 @@
 
+import records.MedicalRecord;
 import units.*;
 import org.junit.jupiter.api.Test;
 import records.DiseaseRecord;
@@ -45,17 +46,47 @@ public class AppTest {
 
 
     @Test
-    void testCanAddRecordToMedicalBook() {
-        Patient patient = new Patient("Иванов", "Иван", "Иванович", 0,0);
+    void testDoctorCanAddDiseaseToPatientMedicalBook() {
+        Registry registry = new Registry();
+        Patient patient = registry.signContract("Иванов", "Иван", "Иванович",0,0);
         Doctor doctor = new Doctor("Иванов", "Иван", "Иванович", "Иваново", "+790909503",  Specilization.THERAPIST,1);
         DiseaseRecord diseaseRecord = new DiseaseRecord("19.03.2022", "Усталость", "Много спать и кущать", "5 дней");
         doctor.addToMedicalBook(patient, diseaseRecord);
-        ArrayList<DiseaseRecord> diseaseRecords =  patient.getDiseaseBook();
-        String excepted = new String("[Дата: 19.03.2022,  Диагноз: Усталость,  Лечение: Много спать и кущать, Время лечения: 5 дней]");
-        assertEquals(patient.getDiseaseBook().toString(), excepted);
-        assertEquals(patient.getDiseaseBook().get(0), diseaseRecord);
+        ArrayList<MedicalRecord> medicalRecords = registry.getMedicalBook(patient);
+        assertEquals(diseaseRecord, medicalRecords.get(0));
 
     }
+    @Test
+    void testRegistryCanAddVisitToPatientMedicalBook(){
+        Registry registry = new Registry();
+        Doctor doctor = new Doctor("Иванов", "Иван", "Иванович", "Иваново", "+790909503",  Specilization.THERAPIST,1);
+        Patient patient = registry.signContract("Иванов", "Иван", "Иванович",0,0);
+        VisitRecord visitRecord = new VisitRecord("19.03.2022", patient,doctor, "256А");
+        registry.addVisitRecord(visitRecord);
+        assertEquals(registry.getVisitBook().get(0), visitRecord);
+        assertEquals(patient.getMedicalBook().get(0), visitRecord);
+    }
+    @Test
+    void testRegistryCanGetDiseaseBook(){
+            Registry registry = new Registry();
+            Patient patient = registry.signContract("Иванов", "Иван", "Иванович",0,0);
+            Doctor doctor = new Doctor("Иванов", "Иван", "Иванович", "Иваново", "+790909503",  Specilization.THERAPIST,1);
+            DiseaseRecord diseaseRecord = new DiseaseRecord("19.03.2022", "Усталость", "Много спать и кущать", "5 дней");
+            DiseaseRecord diseaseRecord1 = new DiseaseRecord("20.03.2022", "Живот болит", "Много спать и кущать", "2 дней");
+            ArrayList<DiseaseRecord> diseaseRecords = new ArrayList<>(){
+            {
+                add(diseaseRecord);
+                add(diseaseRecord1);
+            }
+        };
+            doctor.addToMedicalBook(patient,diseaseRecord);
+            doctor.addToMedicalBook(patient,diseaseRecord1);
+             VisitRecord visitRecord = new VisitRecord("19.03.2022", patient,doctor, "256А");
+             registry.addVisitRecord(visitRecord);
+            System.out.println(patient.getMedicalBook().toString());
+            assertEquals(diseaseRecords, registry.getDiseaseBook(patient));
+    }
+
     @Test
     void testDoctorEquals(){
         Doctor doctor = new Doctor("Иванов", "Иван", "Иванович", "Иваново", "+790909503",  Specilization.THERAPIST,1);
@@ -64,13 +95,15 @@ public class AppTest {
         assertEquals(doctor, doctor1);
         assertNotEquals(doctor,doctor2);
     }
+
+
     @Test
-    void testRegistryCanAddVisit(){
+    void testRegistryCanMakePatients(){
         Registry registry = new Registry();
-        Doctor doctor = new Doctor("Иванов", "Иван", "Иванович", "Иваново", "+790909503",  Specilization.THERAPIST,1);
-        Patient patient = new Patient("Иванов", "Иван", "Иванович", 0,0);
-        VisitRecord visitRecord = new VisitRecord("19.03.2022", patient,doctor, "256А");
-        registry.addVisitRecord(visitRecord);
-        assertEquals(registry.getVisitBook().get(0), visitRecord);
+        Patient patient = registry.signContract("Иванов", "Иван", "Иванович", 0,0);
+        Patient patient1 = registry.signContract("Иванов", "Иван", "Иванович", "Иваново", "+790909503",0,0);
+        assertEquals(patient, new Patient("Иванов", "Иван", "Иванович", 0,0));
+        assertEquals(patient1, new Patient("Иванов", "Иван", "Иванович", "Иваново", "+790909503",0,0));
     }
+
 }

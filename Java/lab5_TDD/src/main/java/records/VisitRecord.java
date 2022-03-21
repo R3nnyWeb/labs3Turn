@@ -56,6 +56,7 @@ public class VisitRecord extends MedicalRecord {
 
     @Override
     public String toString() {
-        return "Дата: " + super.getDate() + ",  Пациент: " + patient + ",  Врач: " + doctor + ", Кабинет: " + cabinet;
+        return "\nДата: " + super.getDate() + ",  Пациент: " + patient + ",  Врач: " + doctor + ", Кабинет: " + cabinet;
     }
+
 }

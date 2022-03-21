@@ -1,6 +1,7 @@
 package units;
 
 import records.DiseaseRecord;
+import records.MedicalRecord;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class Patient extends People {
     private int id;
     private int cardNumber;
-    private ArrayList<DiseaseRecord> diseaseBook;
+    private ArrayList<MedicalRecord> medicalBook;
 
 
 
@@ -16,7 +17,7 @@ public class Patient extends People {
         super(surname, name, patronymic);
         this.id = id;
         this.cardNumber = cardNumber;
-        diseaseBook = new ArrayList<>();
+        medicalBook = new ArrayList<>();
     }
 
     public Patient(String surname, String name, String patronymic, String address, String phone, int id, int cardNumber) {
@@ -41,8 +42,8 @@ public class Patient extends People {
         this.cardNumber = cardNumber;
     }
 
-    public ArrayList<DiseaseRecord> getDiseaseBook() {
-        return diseaseBook;
+    public ArrayList<MedicalRecord> getMedicalBook() {
+        return medicalBook;
     }
 
     @Override
@@ -64,8 +65,8 @@ public class Patient extends People {
         return super.toString() + "\n id: " + id + "\n Номер медкарточки: "+ cardNumber;
     }
 
-    void addToMedicalBook(DiseaseRecord medicalRecord){
-        diseaseBook.add(medicalRecord);
+    public void addToMedicalBook(MedicalRecord medicalRecord){
+        medicalBook.add(medicalRecord);
     }
 
 }

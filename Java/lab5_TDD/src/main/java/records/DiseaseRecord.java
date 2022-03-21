@@ -43,6 +43,6 @@ public class DiseaseRecord extends MedicalRecord {
 
     @Override
     public String toString() {
-        return "Дата: " + super.getDate() + ",  Диагноз: " + diagnosis + ",  Лечение: " + treatment + ", Время лечения: " + convalescenceTime;
+        return "\nДата: " + super.getDate() + ",  Диагноз: " + diagnosis + ",  Лечение: " + treatment + ", Время лечения: " + convalescenceTime;
     }
 }
