@@ -1,4 +1,5 @@
 package units;
+//Кроме основных полей имеет  медкнижку medicalBook в котором могут храниться всe medicalRecords
 
 import records.DiseaseRecord;
 import records.MedicalRecord;

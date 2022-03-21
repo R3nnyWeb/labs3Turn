@@ -1,7 +1,7 @@
 package records;
 
 import java.util.Objects;
-
+//Запись болезней
 public class DiseaseRecord extends MedicalRecord {
 
     private String diagnosis;

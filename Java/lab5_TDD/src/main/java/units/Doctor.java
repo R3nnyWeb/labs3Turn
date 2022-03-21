@@ -1,4 +1,5 @@
 package units;
+//Может заность записи о болезни diseaseRecord пациенту
 
 import records.DiseaseRecord;
 
