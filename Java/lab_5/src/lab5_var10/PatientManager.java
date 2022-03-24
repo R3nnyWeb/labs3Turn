@@ -4,12 +4,18 @@ public interface PatientManager extends PatientInfoManager{
     default void regPatient(int medCard){
         setMedCard(medCard);
     }
-    void issueContract();
-    void stopContract();
-    void continueContract();
+    default void issueContract(){
+        System.out.println("Договор оформлен");
+    }
+    default void stopContract() {
+        System.out.println("Отказ от обслуживания выполнен");
+    }
+    default void continueContract() {
+        System.out.println("Обслуживание возобновлено");
+    }
     void makeAnAppointment();
-    void recordDiagnosis();
-    void recordTreatment();
+    void recordDiagnosis(String diagnosis);
+    void recordTreatment(String treatment);
     void passTests();
     String GetDiagnosis();
     String GetTreatment();

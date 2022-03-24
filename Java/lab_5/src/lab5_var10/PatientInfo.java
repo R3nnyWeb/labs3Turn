@@ -4,7 +4,7 @@ public class PatientInfo {
     private String name, surname, patronymic;
     private String address = "Не указан";
     private String phone = "Не указан";
-    static int numOfPatient;
+    private static int numOfPatient;
     private final int id;
     private int medCard;
 
@@ -74,12 +74,16 @@ public class PatientInfo {
         return id;
     }
 
+    public static int getNumOfPatient() {
+        return numOfPatient;
+    }
+
     @Override
     public String toString() {
         return  "ID пациента: " + id + '\n' +
                 "ФИО: " + name +" "+ surname + " " + patronymic + '\n' +
                 "Номер медицинской карты: " + medCard + '\n' +
                 "Адрес: " + address + '\n' +
-                "Телефон: " + phone;
+                "Телефон: " + phone+ '\n';
     }
 }
