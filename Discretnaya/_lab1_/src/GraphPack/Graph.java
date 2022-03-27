@@ -8,7 +8,7 @@ public class Graph {
 
     private void clean(){
         matchings.clear();
-        int numOfEdges = 0;
+        numOfEdges = 0;
     }
 
     public void loadFromIncidence(int[][] matrix){
