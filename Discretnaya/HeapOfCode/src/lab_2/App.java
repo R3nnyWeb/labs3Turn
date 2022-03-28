@@ -3,6 +3,7 @@ package lab_2;
 import Graph2.Edge;
 import Graph2.EdgeManager;
 import Graph2.Graph;
+import ShortestPath.Node;
 
 import java.util.ArrayList;
 
@@ -33,5 +34,7 @@ public class App {
 //        m.delByEndNode(2);
 //        System.out.println(e);
 //        System.out.println(m);
+        Node n = new Node(1);
+        System.out.println(n);
     }
 }

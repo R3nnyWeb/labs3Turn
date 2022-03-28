@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 public class EdgeManager{
     private ArrayList<Edge> edges;
 
-
     public EdgeManager(){
         edges = new ArrayList<>();
     }
