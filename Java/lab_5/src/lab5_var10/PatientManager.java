@@ -17,8 +17,8 @@ public interface PatientManager extends PatientInfoManager{
     void recordDiagnosis(String diagnosis);
     void recordTreatment(String treatment);
     void passTests();
-    String GetDiagnosis();
-    String GetTreatment();
+    String getDiagnosis();
+    String getTreatment();
     String getMedicalHistory();
     void payServices();
 }

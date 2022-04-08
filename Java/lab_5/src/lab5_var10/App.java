@@ -9,9 +9,23 @@ public class App {
         ArrayList<PatientManager> patients = getPatients();
         System.out.println("Выводим всю информацию:");
         printInfo(patients, PatientManager::toString);
+
+        patients.forEach(PatientManager::passTests);
+        patients.forEach(PatientManager::makeAnAppointment);
+        patients.get(2).recordDiagnosis("COVID-19");
+        patients.get(2).payServices();
+        patients.get(3).recordDiagnosis("Грипп");
+
         System.out.println("Выводим информацию в формате:");
         System.out.println("ID: история болезни");
         printInfo(patients, p -> p.getId() + ": " + p.getMedicalHistory());
+
+        System.out.println();
+        System.out.println("Записи на приём пациента №1:");
+        System.out.println();
+
+        System.out.println(((PatientInfo)patients.get(1)).getMedBook().getVisiting());
+
         System.out.println("Процент заболевших COVID-19: "+
                 (double)CovidPatient.getCovidCounter()/PatientInfo.getNumOfPatient()*100+"%");
     }

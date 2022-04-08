@@ -1,7 +1,8 @@
 package lab5_var10;
 
+import java.util.Date;
+
 public class HospitalPatient extends PatientInfo implements PatientManager {
-    String treatment, diagnosis;
     HospitalPatient(String name, String surname, String patronymic) {
         super(name, surname, patronymic);
     }
@@ -12,36 +13,36 @@ public class HospitalPatient extends PatientInfo implements PatientManager {
 
     @Override
     public void makeAnAppointment() {
-        System.out.println("Запись на прием к врачу выполнена");
+        getMedBook().addVisiting(new Date(), "Запись к врачу");
     }
     @Override
     public void recordDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
+        getMedBook().setDiagnosis(diagnosis);
         System.out.println("Диагноз пациента стационара записан");
     }
     @Override
     public void recordTreatment(String treatment) {
-        this.treatment = treatment;
+        getMedBook().setTreatment(treatment);
         System.out.println("Назначенное лечение пациента стационара записано");
     }
     @Override
     public void passTests() {
-        System.out.println("Лабоаторые исследования сданы");
+        getMedBook().addHistory(new Date(), "Лабоаторые исследования сданы");
     }
     @Override
-    public String GetDiagnosis() {
-        return "Вывод диагноза: "+diagnosis;
+    public String getDiagnosis() {
+        return "Диагноз: "+ getMedBook().getDiagnosis();
     }
     @Override
-    public String GetTreatment() {
-        return "Вывод назначенного лечения: "+treatment;
+    public String getTreatment() {
+        return "Назначенное лечение: "+ getMedBook().getTreatment();
     }
-    @Override
     public String getMedicalHistory() {
-        return "Вывод истории болезни пациента стационара";
+        return "История болезни пациента стационара:\n"+
+                getMedBook().getHistory();
     }
     @Override
     public void payServices() {
-        System.out.println("Услуги оплачены");
+        getMedBook().addHistory(new Date(), "Услуги оплачены");
     }
 }

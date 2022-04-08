@@ -1,7 +1,8 @@
 package lab5_var10;
 
+import java.util.Date;
+
 public class CovidPatient extends PatientInfo implements PatientManager{
-    private String treatment, diagnosis;
     private static int covidCounter;
     CovidPatient(String name, String surname, String patronymic) {
         super(name, surname, patronymic);
@@ -18,37 +19,38 @@ public class CovidPatient extends PatientInfo implements PatientManager{
     }
     @Override
     public void makeAnAppointment() {
-        System.out.println("Запись на прием к врачу выполнена");
+        getMedBook().addVisiting(new Date(), "Запись к врачу");
     }
     @Override
     public void recordDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
+        getMedBook().setDiagnosis(diagnosis);
         System.out.println("Диагноз пациента с COVID-19 записан");
     }
     @Override
     public void recordTreatment(String treatment) {
-        this.treatment = treatment;
+        getMedBook().setTreatment(treatment);
         System.out.println("Назначенное лечение пациента с COVID-19 записано");
     }
     @Override
     public void passTests() {
-        System.out.println("Тест на COVID-19 сдан");
+        getMedBook().addHistory(new Date(), "Тест на COVID-19 сдан");
     }
     @Override
-    public String GetDiagnosis() {
-        return "Вывод диагноза: "+diagnosis;
+    public String getDiagnosis() {
+        return "Диагноз: "+ getMedBook().getDiagnosis();
     }
     @Override
-    public String GetTreatment() {
-        return "Вывод назначенного лечения: "+treatment;
+    public String getTreatment() {
+        return "Назначенное лечение: "+ getMedBook().getTreatment();
     }
     @Override
     public String getMedicalHistory() {
-        return "Вывод истории болезни пациента с COVID-19";
+        return "История болезни пациента с COVID-19:\n"+
+                getMedBook().getHistory();
     }
     @Override
     public void payServices() {
-        System.out.println("Услуги оплачены");
+        getMedBook().addHistory(new Date(), "Услуги оплачены");
     }
 
     public static int getCovidCounter(){

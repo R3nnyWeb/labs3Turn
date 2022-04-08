@@ -1,5 +1,9 @@
 package lab5_var10;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.stream.Collectors;
+
 public class PatientInfo {
     private String name, surname, patronymic;
     private String address = "Не указан";
@@ -7,11 +11,13 @@ public class PatientInfo {
     private static int numOfPatient;
     private final int id;
     private int medCard;
+    private MedicalBook medBook;
 
     PatientInfo(String name, String surname, String patronymic){
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
+        medBook = new MedicalBook();
         id = numOfPatient;
         numOfPatient++;
     }
@@ -85,5 +91,55 @@ public class PatientInfo {
                 "Номер медицинской карты: " + medCard + '\n' +
                 "Адрес: " + address + '\n' +
                 "Телефон: " + phone+ '\n';
+    }
+
+    public MedicalBook getMedBook() {
+        return medBook;
+    }
+
+    class MedicalBook{
+        private ArrayList<Note> visiting;
+        private ArrayList<Note> history;
+         private String treatment, diagnosis;
+
+        MedicalBook(){
+            visiting = new ArrayList<>();
+            history = new ArrayList<>();
+        }
+
+        public void addVisiting(Date date, String info){
+            visiting.add(new Note(date, info));
+        }
+
+        public String getVisiting(){
+            return visiting.stream().map(Note::toString).collect(Collectors.joining("\n"));
+        }
+
+        public String getTreatment() {
+            return treatment;
+        }
+
+        public void setTreatment(String treatment) {
+            history.add(new Note(new Date(), "Запись о лечении: "+treatment));
+            this.treatment = treatment;
+        }
+
+        public String getDiagnosis() {
+            return diagnosis;
+        }
+
+        public void setDiagnosis(String diagnosis) {
+            history.add(new Note(new Date(), "Запись о диагнозе: "+diagnosis));
+            this.diagnosis = diagnosis;
+        }
+
+        public void addHistory(Date date, String info){
+            history.add(new Note(date, info));
+        }
+
+
+        public String getHistory() {
+            return history.stream().map(Note::toString).collect(Collectors.joining("\n"));
+        }
     }
 }
