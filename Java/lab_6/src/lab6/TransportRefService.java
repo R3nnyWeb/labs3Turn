@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class TransportRefService {
@@ -35,7 +36,7 @@ public class TransportRefService {
         this.endPoint = endPoint;
         buses.stream()
                 .filter(TransInfo::existPath)
-                .filter(bus -> bus.isAvailable(date.getDayOfWeek().getValue()))
+                .filter(bus -> bus.isAvailable(date.getDayOfWeek()))
                 .forEach(this::printInfo);
     }
 
@@ -59,11 +60,11 @@ public class TransportRefService {
     }
 
     class TransInfo {
-        private boolean[] weekdays;
+        private ArrayList<DayOfWeek> weekdays;
         private ArrayList<ArrivalPoint> path;
         int start, end;
 
-        TransInfo(boolean[] weekdays, ArrayList<ArrivalPoint> path){
+        TransInfo(ArrayList<DayOfWeek> weekdays, ArrayList<ArrivalPoint> path){
             this.weekdays = weekdays;
             this.path = path;
         }
@@ -80,9 +81,9 @@ public class TransportRefService {
             end = findPoint(endPoint);
         }
 
-        boolean isAvailable(int weekday){
+        boolean isAvailable(DayOfWeek weekday){
             update();
-            return weekdays[weekday-1];
+            return weekdays.contains(weekday);
         }
 
         boolean existPath(){
@@ -108,19 +109,16 @@ public class TransportRefService {
 
         String getWeekdays(){
             ArrayList<String> days = new ArrayList<>();
-            for (int i=0; i<7; ++i){
-                if (weekdays[i]){
-                    days.add(switch (i){
-                        case 0 -> "Понедельник";
-                        case 1 -> "Вторник";
-                        case 2 -> "Среда";
-                        case 3 -> "Четверг";
-                        case 4 -> "Пятница";
-                        case 5 -> "Суббота";
-                        case 6 -> "Воскресение";
-                        default -> "";
-                    });
-                }
+            for (DayOfWeek day : weekdays){
+                days.add(switch (day){
+                    case MONDAY -> "Понедельник";
+                    case TUESDAY -> "Вторник";
+                    case WEDNESDAY -> "Среда";
+                    case THURSDAY -> "Четверг";
+                    case FRIDAY -> "Пятница";
+                    case SATURDAY -> "Суббота";
+                    case SUNDAY -> "Воскресение";
+                });
             }
             if(days.size()==7) {
                 return "Ежедневно";
@@ -137,11 +135,11 @@ public class TransportRefService {
     }
 
     class TransInfoBuilder {
-        private boolean[] weekdays;
+        private ArrayList<DayOfWeek> weekdays;
         private ArrayList<ArrivalPoint> path;
 
         private TransInfoBuilder(String startPoint, LocalTime sendTime){
-            weekdays = new boolean[7];
+            weekdays = new ArrayList<>();
             path = new ArrayList<>();
             path.add(new ArrivalPoint(startPoint, sendTime, 0));
         }
@@ -152,9 +150,7 @@ public class TransportRefService {
         }
 
         TransInfoBuilder setWeekDays(DayOfWeek... days){
-            for(DayOfWeek day : days){
-                weekdays[day.getValue()-1] = true;
-            }
+            Collections.addAll(weekdays, days);
             return this;
         }
 
