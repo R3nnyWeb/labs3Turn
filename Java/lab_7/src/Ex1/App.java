@@ -8,11 +8,11 @@ public class App {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Введите текст: ");
-        String str = scan.nextLine();
+        String text = scan.nextLine();
         System.out.println("Введите количество символов для отображения в статистике");
-        long num = scan.nextLong();
+        long limit = scan.nextLong();
         scan.close();
-        printStatistic(str, num);
+        printStatistic(text, limit);
     }
 
     public static void printStatistic(String text, long limit){
