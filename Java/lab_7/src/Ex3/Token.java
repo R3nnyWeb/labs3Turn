@@ -1,9 +1,14 @@
 package Ex3;
 
-public class Token {
+public abstract class Token {
     private String value;
 
     Token(String val){
         value = val;
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 }

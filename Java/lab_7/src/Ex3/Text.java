@@ -1,5 +1,16 @@
 package Ex3;
 
-public class Text {
+import java.util.ArrayList;
 
+public class Text {
+    ArrayList<Paragraph> paragraphs;
+
+    Text(ArrayList<Paragraph> paragraphs){
+        this.paragraphs = paragraphs;
+    }
+
+    @Override
+    public String toString() {
+        return paragraphs + "";
+    }
 }
