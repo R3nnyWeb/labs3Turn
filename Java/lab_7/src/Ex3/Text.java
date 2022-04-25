@@ -1,6 +1,7 @@
 package Ex3;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Text {
     ArrayList<Paragraph> paragraphs;
@@ -11,6 +12,8 @@ public class Text {
 
     @Override
     public String toString() {
-        return paragraphs + "";
+        return paragraphs.stream()
+                .map(Paragraph::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

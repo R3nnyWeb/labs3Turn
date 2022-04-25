@@ -1,4 +1,4 @@
-package Graph2;
+package FindShortestTree;
 
 import java.util.HashSet;
 
