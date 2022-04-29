@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Text {
-    ArrayList<Paragraph> paragraphs;
+    private ArrayList<Paragraph> paragraphs;
 
     Text(ArrayList<Paragraph> paragraphs){
         this.paragraphs = paragraphs;
+    }
+
+    public ArrayList<Paragraph> getParagraphs() {
+        return paragraphs;
     }
 
     @Override

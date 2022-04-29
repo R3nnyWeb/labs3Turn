@@ -1,7 +1,6 @@
 package Ex2;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class App {
     public static void main(String[] args) {
@@ -18,7 +17,5 @@ public class App {
         List<String> words = Arrays.stream(splitedText).toList();
         words = words.stream().filter(s -> s.equals(filterWord)).toList();
         System.out.println(words.size());
-
     }
-
 }

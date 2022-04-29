@@ -37,7 +37,7 @@ public class Parser {
         ArrayList<Sentence> sentences = new ArrayList<>();
         while (notEOF){
             sentences.add(getSentence());
-            if(notEOF && currentToken.toString().equals("\n")){
+            if(notEOF && currentToken.getValue().equals("\n")){
                 advance();
                 break;
             }

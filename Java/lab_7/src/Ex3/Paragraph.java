@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Paragraph {
-    ArrayList<Sentence> sentences;
+    private ArrayList<Sentence> sentences;
 
     Paragraph(ArrayList<Sentence> sentences){
         this.sentences = sentences;
+    }
+
+    public ArrayList<Sentence> getSentences() {
+        return sentences;
     }
 
     @Override
