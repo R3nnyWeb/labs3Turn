@@ -3,7 +3,6 @@ package org.example;
 
 import org.example.models.City;
 import org.example.models.Type;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +28,7 @@ public class DBAction{
             "                           from city c join city_type ct on c.id = ct.city_id\n" +
             "                           group by c.id\n" +
             "                           having sum(ct.value) = ?)";
+
     public static void printAllCities() {
         List<City> cities = new ArrayList<>();
         try {
@@ -61,40 +61,39 @@ public class DBAction{
             e.printStackTrace();
             System.err.println("Ошибка подключения");
         }
-    };
+    }
 
-        public static void printAllTypes(){
-            List<Type> types = new ArrayList<>();
+    public static void printAllTypes(){
+        List<Type> types = new ArrayList<>();
+        try {
+            Connection connection = ConnectionCreator.getNewConnection(USERNAME, PASSWORD, URL);
+            Statement statement = connection.createStatement();
             try {
-                Connection connection = ConnectionCreator.getNewConnection(USERNAME, PASSWORD, URL);
-                Statement statement = connection.createStatement();
-                try {
-                    ResultSet resultSet = statement.executeQuery(SELECT_FROM_TYPE);
-                    while (resultSet.next()){
-                        Type type = new Type();
-                        type.setId(resultSet.getInt("id"));
-                        type.setName(resultSet.getString("name"));
-                        type.setLanguage(resultSet.getString("language"));
-
+                ResultSet resultSet = statement.executeQuery(SELECT_FROM_TYPE);
+                while (resultSet.next()){
+                    Type type = new Type();
+                    type.setId(resultSet.getInt("id"));
+                    type.setName(resultSet.getString("name"));
+                    type.setLanguage(resultSet.getString("language"));
                         types.add(type);
-                    }
-                    System.out.println();
-                    System.out.println(" Все типы жителей: ");
-                    types.forEach(System.out::println);
-                    resultSet.close();
-                } catch (SQLException e){
-                    e.printStackTrace();
-                    System.err.println("Ошибка выполнения запроса");
-                }  finally {
-                    connection.close();
-                    statement.close();
                 }
-
-            } catch (SQLException e) {
+                System.out.println();
+                System.out.println(" Все типы жителей: ");
+                types.forEach(System.out::println);
+                resultSet.close();
+            } catch (SQLException e){
                 e.printStackTrace();
-                System.err.println("Ошибка подключения");
+                System.err.println("Ошибка выполнения запроса");
+            }  finally {
+                connection.close();
+                statement.close();
             }
-    };
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Ошибка подключения");
+        }
+    }
+
     public static void printFirstQuery(String city, String language){
         try {
             Connection connection = ConnectionCreator.getNewConnection(USERNAME, PASSWORD, URL);
@@ -117,13 +116,12 @@ public class DBAction{
                 connection.close();
                 preparedStatement.close();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Ошибка подключения");
         }
+    }
 
-    };
     public static void printSecondQuery(String type){
         try {
             Connection connection = ConnectionCreator.getNewConnection(USERNAME, PASSWORD, URL);
@@ -146,13 +144,12 @@ public class DBAction{
                 connection.close();
                 preparedStatement.close();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Ошибка подключения");
         }
+    }
 
-    };
     public static void printThirdQuery(String value){
         try {
             Connection connection = ConnectionCreator.getNewConnection(USERNAME, PASSWORD, URL);
@@ -176,12 +173,9 @@ public class DBAction{
                 connection.close();
                 preparedStatement.close();
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Ошибка подключения");
         }
-
-    };
-
+    }
 }
