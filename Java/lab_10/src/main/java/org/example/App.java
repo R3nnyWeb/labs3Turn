@@ -25,11 +25,22 @@ public class App
         String city = sc.nextLine();
         System.out.println("Введите название языка");
         String language = sc.nextLine();
+        System.out.println("Вывести информацию обо" +
+                        " всех жителях заданного города, " +
+                        "разговаривающих на заданном языке:");
         DBAction.printFirstQuery(city, language);
+        System.out.println("Вывести информацию обо всех городах," +
+                " в которых проживают жители выбранного типа: ");
         System.out.println("Введите название типа");
         String type = sc.nextLine();
         DBAction.printSecondQuery(type);
+        System.out.println();
+        System.out.println("Вывести информацию о городе с заданным количеством населения" +
+                " и всех типах жителей, в нем проживающих: ");
+        System.out.println("Введите количество людей");
+        Integer value = sc.nextInt();
 
+        DBAction.printThirdQuery(value.toString());
         sc.close();
     }
 }
