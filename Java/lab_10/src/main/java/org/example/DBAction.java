@@ -22,6 +22,13 @@ public class DBAction{
             "from city c join city_type ct on c.id = ct.city_id " +
             "join type t on ct.type_id = t.id " +
             "where t.name = ? ";
+    final private static String THIRD_QUERY = "select c.*, t.*, ct.value \n" +
+            "            from city c join city_type ct on c.id = ct.city_id\n" +
+            "            join type t on ct.type_id = t.id\n" +
+            "            where c.id in (select c.id\n" +
+            "                           from city c join city_type ct on c.id = ct.city_id\n" +
+            "                           group by c.id\n" +
+            "                           having sum(ct.value) = ?)";
     public static void printAllCities() {
         List<City> cities = new ArrayList<>();
         try {
@@ -146,6 +153,35 @@ public class DBAction{
         }
 
     };
+    public static void printThirdQuery(String value){
+        try {
+            Connection connection = ConnectionCreator.getNewConnection(USERNAME, PASSWORD, URL);
+            PreparedStatement preparedStatement = connection.prepareStatement(THIRD_QUERY);
+            try {
+                preparedStatement.setString(1,value);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    System.out.println("[" + resultSet.getString("c.name") + " " +
+                            resultSet.getInt("c.year") + " " +
+                            resultSet.getInt("c.square") + " " +
+                            resultSet.getString("t.name") + " "+
+                            resultSet.getString("t.language") + " "+
+                            resultSet.getString("ct.value") + "]");
+                }
+                resultSet.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+                System.err.println("Ошибка выполнения запроса");
+            }finally {
+                connection.close();
+                preparedStatement.close();
+            }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Ошибка подключения");
+        }
+
+    };
 
 }
