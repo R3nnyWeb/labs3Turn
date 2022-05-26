@@ -17,8 +17,6 @@ create table type
         primary key (id)
 );
 
-
-
 create table city_type
 (
     city_id int not null,
@@ -31,4 +29,3 @@ create table city_type
     constraint city_type_type_id_fk
         foreign key (type_id) references type (id)
 );
-
